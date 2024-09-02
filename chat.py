@@ -1,5 +1,3 @@
-from asyncio import wait
-
 import streamlit as st
 
 from dotenv import load_dotenv
@@ -24,13 +22,11 @@ def write_sources(documents):
 
     for doc in documents:
         source = doc.metadata.get("source")
+        source = source.replace(".txt", "")
         if source not in sources:
             sources.add(source)
             link = s3_url + quote(source) # 한글 url encoding
-            encoded_file_name = quote(source)
-            # link = "[Example Link](https://www.example.com)"
             link = "\n\n" + f"[{source}]({link})"
-            # unique_sources.append(f"\n- {s3_url}{encoded_file_name}")
             unique_sources.append(link)
 
     return unique_sources

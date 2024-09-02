@@ -1,3 +1,5 @@
+import os
+
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, FewShotChatMessagePromptTemplate, \
     PromptTemplate
@@ -23,9 +25,6 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 
 
 def get_retriever():
-    # embedding = OpenAIEmbeddings(model='text-embedding-3-large')
-    # index_name = 'wiki-openai-index'
-    # namespace = "doc_v2"
     embedding = UpstageEmbeddings(model='solar-embedding-1-large-query')
     index_name = 'wiki-upstage-index'
     namespace = "doc_v1"
