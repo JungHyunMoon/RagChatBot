@@ -27,7 +27,7 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 def get_retriever():
     embedding = UpstageEmbeddings(model='solar-embedding-1-large-query')
     index_name = 'wiki-upstage-index'
-    namespace = "doc_v1"
+    namespace = "chunk_1500_v1"
     database = PineconeVectorStore.from_existing_index(index_name=index_name, namespace=namespace, embedding=embedding)
     retriever = database.as_retriever(search_kwargs={'k': 4}, return_source_documents=True)
     return retriever
@@ -152,13 +152,5 @@ def get_ai_response(user_message):
             "configurable": {"session_id": "abc123"}
         }
     )
-    ai_resource = final_chain.pick("context").invoke(
-        {
-            "question": user_message
-        },
-        config={
-            "configurable": {"session_id": "abc123"}
-        }
-    )
 
-    return ai_response, ai_resource
+    return ai_response
